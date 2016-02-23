@@ -15,6 +15,8 @@ alias tl='cat /var/log/rsync*'
 alias vib='vi ~/.bashrc ; source ~/.bashrc'
 alias viv='vi ~/.vimrc'
 
+alias dpa='docker ps -a'
+
 alias cfi=CountFiles
 function CountFiles() {
   find "$@" -type f | wc -l  
