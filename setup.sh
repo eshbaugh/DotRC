@@ -2,11 +2,11 @@
 
 cp ../.vimrc ../.vimrc.bak
 rm ../.vimrc
-ln -s linux/.vimrc ../.vimrc
+ln -s DotRC/.vimrc ../.vimrc
 
 cp ../.bashrc ../.bashrc.bak
 rm ../.bashrc 
-ln -s linux/.bashrc ../.bashrc
+ln -s DotRC/.bashrc ../.bashrc
 
 # this does not work
 #source ../.bashrc
