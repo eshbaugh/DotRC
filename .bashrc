@@ -15,7 +15,15 @@ alias tl='cat /var/log/rsync*'
 alias vib='vi ~/.bashrc ; source ~/.bashrc'
 alias viv='vi ~/.vimrc'
 
+alias ds1='docker exec -ti solr1 bash'
+alias ds2='docker exec -ti solr2 bash'
+alias dz1='docker exec -ti zookeeper bash'
 alias dpa='docker ps -a'
+
+alias ga='git add .'
+alias gd='git diff'
+alias gs='git status'
+alias gv='git remote -v'
 
 alias cfi=CountFiles
 function CountFiles() {
