@@ -1,35 +1,47 @@
 # .bashrc
 # User specific aliases and functions
 
+#general
 alias rm='rm -i' 
 alias cp='cp -i' 
 alias mv='mv -i' 
 alias ll='ls -alrut' 
 alias lt='ls -alrut' 
 alias h='history' 
-alias cdp='cd /srv/pillar' 
-alias cds='cd /srv/salt' 
-alias cdt='cd /app/test'
-alias cdv='cd /mnt/cloud-backup'
-alias tl='cat /var/log/rsync*'
 alias vib='vi ~/.bashrc ; source ~/.bashrc'
 alias viv='vi ~/.vimrc'
-
-alias ds1='docker exec -ti solr1 bash'
-alias ds2='docker exec -ti solr2 bash'
-alias dz1='docker exec -ti zookeeper bash'
-alias dpa='docker ps -a'
-
-alias ga='git add .'
-alias gd='git diff'
-alias gs='git status'
-alias gv='git remote -v'
 
 alias cfi=CountFiles
 function CountFiles() {
   find "$@" -type f | wc -l  
 }
 
+#solr
+alias jtz='bin/solr start -cloud -s /tmp/solr-node1 -p 8983 -z localhost:2181'
+
+#docker
+alias ds1='docker exec -ti solr1 bash'
+alias ds2='docker exec -ti solr2 bash'
+alias dz1='docker exec -ti zookeeper bash'
+alias dpa='docker ps -a'
+alias dfs='docker exec -ti farmtoschoolcensus.fns.usda.gov bash'
+alias dcomp=DockerCompose 
+function DockerCompose { 
+  docker-compose "$@" 
+} 
+
+#git
+alias ga='git add .'
+alias gd='git diff'
+alias gs='git status'
+alias gv='git remote -v'
+
+#salt
+alias cdp='cd /srv/pillar' 
+alias cds='cd /srv/salt' 
+alias cdt='cd /app/test'
+alias cdv='cd /mnt/cloud-backup'
+alias tl='cat /var/log/rsync*'
 alias sas=HighApplyState 
 function HighApplyState() { 
   > /var/log/salt/minion 
@@ -41,7 +53,6 @@ function HighApplyState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-
 alias shs=HighState 
 function HighState() { 
   > /var/log/salt/minion 
@@ -53,7 +64,6 @@ function HighState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-
 alias sbs=BackupState 
 function BackupState() { 
   > /var/log/salt/minion 
@@ -67,10 +77,6 @@ function BackupState() {
   cat /var/log/salt/master 
 } 
 
-alias dcomp=DockerCompose 
-function DockerCompose { 
-  docker-compose "$@" 
-} 
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
