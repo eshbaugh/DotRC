@@ -10,6 +10,7 @@ alias lt='ls -alrut'
 alias h='history' 
 alias vib='vi ~/.bashrc ; source ~/.bashrc'
 alias viv='vi ~/.vimrc'
+alias gri='cat /etc/*release'
 
 alias cfi=CountFiles
 function CountFiles() {
