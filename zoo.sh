@@ -37,12 +37,13 @@ if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
 elif [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
   IP_PORT=$HOST2:$PORT
 
-  docker stop solr1
-  docker stop solr2
-  docker rm solr1
-  docker rm solr2
+  docker stop solr21
+  docker rm solr21
 
-  docker run --name solr21 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IP_PORT 
+  echo "running ZK"
+  docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
+
+  docker run --name solr21 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z 162.79.27.44:2181'
 
 else
   echo "Unsupported host:" $HOSTNAME
