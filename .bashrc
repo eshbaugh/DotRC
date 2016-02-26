@@ -20,6 +20,9 @@ function CountFiles() {
 #solr
 alias jtz='bin/solr start -cloud -s /tmp/solr-node1 -p 8983 -z localhost:2181'
 
+alias s1='ssh -i /Users/jerrydev/.ssh/jerry jeshbaugh@162.79.27.42'
+alias s2='ssh -i /Users/jerrydev/.ssh/jerry jeshbaugh@162.79.27.44'
+
 #docker
 alias ds1='docker exec -ti solr1 bash'
 alias ds2='docker exec -ti solr2 bash'
