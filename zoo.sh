@@ -5,7 +5,7 @@ PORT=2181
 TCP=tcp://$IP:$PORT
 echo $TCP
 
-if [ $HOSTNAME = "easjerrysolr2.novalocal" ]
+if [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
   echo "2"
 else
   echo "1"
