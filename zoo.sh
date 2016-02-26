@@ -1,5 +1,18 @@
 #!/usr/bin/env bash
 
+IP=162.79.27.42
+PORT=2181
+TCP=tcp://$IP:$PORT
+echo $TCP
+
+if [ $HOSTNAME = "easjerrysolr2.novalocal" ]
+  echo "2"
+else
+  echo "1"
+fi
+
+if false ; then
+
 docker stop solr1
 docker stop solr2
 docker stop zookeeper
@@ -20,3 +33,5 @@ docker exec -it --user=solr solr1 bin/solr create_collection -c gettingstarted
 docker exec -it --user=solr solr1 bin/post -c gettingstarted example/exampledocs/manufacturers.xml
 
 docker ps -a
+
+fi
