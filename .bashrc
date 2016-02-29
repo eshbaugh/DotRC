@@ -24,10 +24,16 @@ alias s1='ssh -i /Users/jerrydev/.ssh/jerry jeshbaugh@162.79.27.42'
 alias s2='ssh -i /Users/jerrydev/.ssh/jerry jeshbaugh@162.79.27.44'
 
 #docker
-alias ds1='docker exec -ti solr1 bash'
-alias ds2='docker exec -ti solr2 bash'
-alias dz1='docker exec -ti zookeeper bash'
+alias ds11='docker exec -ti solr11 bash'
+alias ds12='docker exec -ti solr12 bash'
+alias ds21='docker exec -ti solr21 bash'
+alias ds22='docker exec -ti solr22 bash'
+alias dz='docker exec -ti zookeeper bash'
 alias dpa='docker ps -a'
+alias di11='docker inspect solr11|more'
+alias di12='docker inspect solr12|more'
+alias di21='docker inspect solr21|more'
+alias di22='docker inspect solr22|more'
 alias dfs='docker exec -ti farmtoschoolcensus.fns.usda.gov bash'
 alias dcomp=DockerCompose 
 function DockerCompose { 
