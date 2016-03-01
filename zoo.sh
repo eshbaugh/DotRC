@@ -37,16 +37,6 @@ docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/
 echo "running " $SOLR2 
 docker run --name $SOLR2 --link zookeeper:ZK -d -p 8984:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IPP
 
-# create sample data
-if [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
-  echo "creating collection with two shards"
-  COLL=$SOLR1'col'
-  docker exec -it $SOLR1 /opt/solr/bin/solr create_collection -c $COLL -shards 2 -p 8983
-
-  echo "populating getting started with computer manufactures"
-  docker exec -it --user=solr $SOLR1 bin/post -c $COLL example/exampledocs/manufacturers.xml
-fi
-
 docker ps -a
 
 echo "done"
