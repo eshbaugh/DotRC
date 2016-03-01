@@ -1,16 +1,15 @@
 #!/usr/bin/env bash
 
+# Solr1: publicIP: 162.79.27.42    PrivateIP: 192.168.25.90
+# Solr1: publicIP: 162.79.27.44    PrivateIP: 192.168.25.91
+
 if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
   # This is the host IP for the other server
-#  HOST_IP_PUB=162.79.27.44   
-#  HOST_IP_PRI=192.168.25.91
   SOLR1=solr11
   SOLR2=solr12
 
 elif [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
   # This is the host IP for the other server
-#  HOST_IP_PUB=162.79.27.42
-#  HOST_IP_PRI=192.168.25.90
   SOLR1=solr21
   SOLR2=solr22
 
@@ -20,7 +19,6 @@ else
 fi
 
 # Use the same Zookeeper server for both
-HOST_IP_PUB=162.79.27.42
 HOST_IP_PRI=192.168.25.90
 ZK_PORT=2181
 
