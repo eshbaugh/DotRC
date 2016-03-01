@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+
+HOST_IP_PUB=162.79.27.42
+HOST_IP_PRI=192.168.25.90
+SOLR1=solr11
+SOLR2=solr12
+
+ZK_PORT=2181
+
+IPP=$HOST_IP_PRI':'$ZK_PORT
+echo $IPP
