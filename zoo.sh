@@ -19,7 +19,8 @@ else
 fi
 
 # Use the same Zookeeper server for both
-HOST_IP_PRI=192.168.25.90
+IP1=192.168.25.90
+IP2=192.168.25.91
 ZK_PORT=2181
 
 docker ps -a
@@ -27,13 +28,14 @@ docker ps -a
 echo "running ZK"
 docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
 
-IPP=$HOST_IP_PRI':'$ZK_PORT
+IPP1=$IP1':'$ZK_PORT
+IPP2=$IP2':'$ZK_PORT
 
 echo "running " $SOLR1 
-docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IPP
+docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IPP1','$IPP2' -noprompt'
 
-echo "running " $SOLR2 
-docker run --name $SOLR2 --link zookeeper:ZK -d -p 8984:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IPP
+#echo "running " $SOLR2 
+# swap  first 8983 for 8984
 
 docker ps -a
 
