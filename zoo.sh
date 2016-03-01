@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
   # This is the host IP for the other server
 #  HOST_IP_PUB=162.79.27.44   
@@ -27,17 +26,6 @@ ZK_PORT=2181
 
 docker ps -a
 
-# to run a basic solr container detached/port/sudotty
-# docker run --name my_solr -d -p 8983:8983 -t solr
-
-echo "Ignore <no such ID> errors this script is run on a new host"
-docker stop zookeeper
-docker rm zookeeper
-docker stop $SOLR1
-docker stop $SOLR2
-docker rm $SOLR1
-docker rm $SOLR2
-
 echo "running ZK"
 docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
 
@@ -52,6 +40,8 @@ docker run --name $SOLR2 --link zookeeper:ZK -d -p 8984:8983 solr bash -c '/opt/
 # create sample data
 if true ; then
   echo "creating collection with two shards"
+  COLL=$SOLR1'col'
+  docker exec -it $SOLR1 /opt/solr/bin/solr create_collection -c $COLL -shards 2 -p 8983
 
   echo "populating getting started with computer manufactures"
   docker exec -it --user=solr $SOLR1 bin/post -c $COLL example/exampledocs/manufacturers.xml
