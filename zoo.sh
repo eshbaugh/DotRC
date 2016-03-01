@@ -1,14 +1,17 @@
 #!/usr/bin/env bash
 
+
 if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
-  HOST_IP_PUB=162.79.27.42
-  HOST_IP_PRI=192.168.25.90
+  # This is the host IP for the other server
+#  HOST_IP_PUB=162.79.27.44   
+#  HOST_IP_PRI=192.168.25.91
   SOLR1=solr11
   SOLR2=solr12
 
 elif [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
-  HOST_IP_PUB=162.79.27.44   
-  HOST_IP_PRI=192.168.25.91
+  # This is the host IP for the other server
+#  HOST_IP_PUB=162.79.27.42
+#  HOST_IP_PRI=192.168.25.90
   SOLR1=solr21
   SOLR2=solr22
 
@@ -17,6 +20,9 @@ else
   exit
 fi
 
+# Use the same Zookeeper server for both
+HOST_IP_PUB=162.79.27.42
+HOST_IP_PRI=192.168.25.90
 ZK_PORT=2181
 
 docker ps -a
@@ -45,9 +51,7 @@ docker run --name $SOLR2 --link zookeeper:ZK -d -p 8984:8983 solr bash -c '/opt/
 
 # create sample data
 if true ; then
-  echo "creating collection co1 with two shards on solr11 and 12 the colllection"
-  COLL=$SOLR1'col'
-  docker exec -it $SOLR1 /opt/solr/bin/solr create_collection -c $COLL -shards 2 -p 8983
+  echo "creating collection with two shards"
 
   echo "populating getting started with computer manufactures"
   docker exec -it --user=solr $SOLR1 bin/post -c $COLL example/exampledocs/manufacturers.xml
