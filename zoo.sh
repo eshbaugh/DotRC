@@ -30,14 +30,20 @@ docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zoo
 IPP1=$IP1':'$ZK_PORT
 IPP2=$IP2':'$ZK_PORT
 
+# H1 & H2 '$IPP1','$IPP2' -noprompt'
 # Running this on both hosts... ERROR: Cannot connect to cluster at 192.168.25.90:2181,192.168.25.91:2181: cluster not found/not ready when doing a zoopop.sh
-# docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IPP1','$IPP2' -noprompt'
+
+# H1 -z $ZK_PORT_2181_TCP_ADDR:$ZK_PORT_2181_TCP_PORT H2 $IPP1
+# populate creates a sol21 shard core on host 1 nothing on H2 
+# ERROR: Failed to create collection 'solr21col' due to: org.apache.solr.client.solrj.SolrServerException:Server refused connection at: http://172.17.0.4:8983/solr
+
+# No Prompt H1 -z $ZK_PORT_2181_TCP_ADDR:$ZK_PORT_2181_TCP_PORT H2 $IPP1
 
 if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
   docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z $ZK_PORT_2181_TCP_ADDR:$ZK_PORT_2181_TCP_PORT'
 else
   # second host
-  docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IPP1' -noprompt'
+  docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IPP1
 fi
 
 
