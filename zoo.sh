@@ -25,8 +25,10 @@ ZK_PORT=2181
 
 docker ps -a
 
-echo "running ZK"
-docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
+if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
+  echo "running ZK"
+  docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
+fi 
 
 IPP1=$IP1':'$ZK_PORT
 IPP2=$IP2':'$ZK_PORT
@@ -35,7 +37,7 @@ echo "running " $SOLR1
 docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z '$IPP1','$IPP2' -noprompt'
 
 #echo "running " $SOLR2 
-# swap  first 8983 for 8984
+# swap  first 8983 for 8984 for a second solar node on the same host
 
 docker ps -a
 
