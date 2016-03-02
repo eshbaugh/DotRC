@@ -3,15 +3,16 @@
 if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
   SOLR1=solr11
 elif [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
-  SOLR1=solr21
+  # Test both using solr11
+  SOLR1=solr11
 fi
 
 # create sample data
 echo "creating collection with two shards"
 
-COLL=$SOLR1'col'
-docker exec -it $SOLR1 /opt/solr/bin/solr create_collection -c $COLL -shards 2 -p 8983
-docker exec -it --user=solr $SOLR1  bin/post -c $COLL example/exampledocs/manufacturers.xml
+#COLL=$SOLR1'col'
+#docker exec -it $SOLR1 /opt/solr/bin/solr create_collection -c $COLL -shards 2 -p 8983
+#docker exec -it --user=solr $SOLR1  bin/post -c $COLL example/exampledocs/manufacturers.xml
 
 
 echo "creating EG data"

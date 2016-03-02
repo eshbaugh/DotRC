@@ -8,6 +8,7 @@ if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
 elif [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
   # This is the host IP for the other server
   SOLR1=solr21
+  SOLR1=solr11
   SOLR2=solr22
 
 else

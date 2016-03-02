@@ -10,7 +10,8 @@ if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
 
 elif [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
   # This is the host IP for the other server
-  SOLR1=solr21
+  # TEST BOTH WITH THE SAME NAME
+  SOLR1=solr11
   SOLR2=solr22
 
 else
@@ -47,6 +48,9 @@ IPP2=$IP2':'$ZK_PORT
 
 # H1 & H2 '$IPP1','$IPP2' -cloud'
 docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1','$IPP2
+
+# H1 & H2 '$IPP1','$IPP2' no link zookeeper'
+docker run --name $SOLR1 -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1','$IPP2
 
 
 docker ps -a
