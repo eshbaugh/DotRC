@@ -47,7 +47,7 @@ IPP2=$IP2':'$ZK_PORT
 #docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -f -z $ZK_PORT_2181_TCP_ADDR:$ZK_PORT_2181_TCP_PORT'
 
 # H1 & H2 '$IPP1','$IPP2' -cloud'
-docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1','$IPP2
+#docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1','$IPP2
 
 # H1 & H2 '$IPP1','$IPP2' no link zookeeper'
 docker run --name $SOLR1 -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1','$IPP2
