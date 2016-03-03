@@ -46,6 +46,10 @@ alias gd='git diff'
 alias gs='git status'
 alias gv='git remote -v'
 
+
+#WebDav
+alias cad='cadaver https://www.cloudvault.usda.gov/remote.php/webdav/'
+
 #salt
 alias cdp='cd /srv/pillar' 
 alias cds='cd /srv/salt' 
