@@ -26,7 +26,9 @@ ZK_PORT=2181
 
 # we need zookeeper running on both hosts or --link zookeeper:ZK failes
 echo "running ZK"
-docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
+if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
+  docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
+fi
 
 IPP1=$IP1':'$ZK_PORT
 IPP2=$IP2':'$ZK_PORT
@@ -50,8 +52,10 @@ IPP2=$IP2':'$ZK_PORT
 #docker run --name $SOLR1 --link zookeeper:ZK -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1','$IPP2
 
 # H1 & H2 '$IPP1','$IPP2' no link zookeeper'
-docker run --name $SOLR1 -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1','$IPP2
+#docker run --name $SOLR1 -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1','$IPP2
 
+# one zookeeper on H1 no link
+docker run --name $SOLR1 -d -p 8983:8983 solr bash -c '/opt/solr/bin/solr start -cloud -f -z '$IPP1
 
 docker ps -a
 
