@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
+# http://www.container42.com/2015/10/30/docker-networking-reborn/
+
 echo "Creating keystore VirtualBox"
+# on linux use: docker-machine create --driver generic --generic-ip-address=203.0.113.81 mh-keystore
 docker-machine create -d virtualbox mh-keystore 
 
 echo "eval keystore"

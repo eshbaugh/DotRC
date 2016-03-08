@@ -2,8 +2,10 @@
 
 #docker run --net=network
 
-#Create keystore
-docker run -d     -p "8500:8500"     -h "consul"     progrium/consul -server –bootstrap 
+docker rm -f consul
+
+#echo "Create keystore"
+docker run -d     -p "8500:8500" --name "consul"    -h "consul"     progrium/consul -server –bootstrap 
 
 # eval "$(docker-machine env mh-keystore)" 
 echo "Create overlay network"
