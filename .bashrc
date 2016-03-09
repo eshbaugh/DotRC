@@ -90,7 +90,10 @@ function BackupState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-
+alias dkm=DockerMachine
+function DockerMachine() {
+  docker-machine "$@" 
+}
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
