@@ -94,6 +94,10 @@ alias dkm=DockerMachine
 function DockerMachine() {
   docker-machine "$@" 
 }
+alias sdm=SwitchDockerMachine
+function SwitchDockerMachine() {
+  eval "$(docker-machine env "$@")"
+}
 
 # Source global definitions
 if [ -f /etc/bashrc ]; then
