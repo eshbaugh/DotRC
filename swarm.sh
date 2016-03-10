@@ -2,19 +2,8 @@
 
 # http://www.container42.com/2015/10/30/docker-networking-reborn/
 
-#echo "Creating keystore VirtualBox"
-# on linux use: docker-machine create --driver generic --generic-ip-address=203.0.113.81 mh-keystore
-#docker-machine create -d virtualbox mh-keystore 
-
-#echo "eval keystore"
-#eval "$(docker-machine env mh-keystore)" 
-
-echo "Docker run consul"
-docker rm -f consul
-docker run -d -p "8500:8500" -h "consul" --name "consul"  progrium/consul -server –bootstrap 
-
 #echo "Create swarm master"
-#docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery="consul://$(docker-machine ip mh-keystore):8500" --engine-opt="cluster-store=consul://$(docker-machine ip mh-keystore):8500" --engine-opt="cluster-advertise=eth1:2376" mhs-demo0 
+docker-machine create -d virtualbox --swarm --swarm-master --swarm-discovery="consul://$(docker-machine ip mh-keystore):8500" --engine-opt="cluster-store=consul://$(docker-machine ip mh-keystore):8500" --engine-opt="cluster-advertise=eth1:2376" mhs-demo0 
 #
 #echo "Create swarm discovery"
 #docker-machine create -d virtualbox --swarm --swarm-discovery="consul://$(docker-machine ip mh-keystore):8500" --engine-opt="cluster-store=consul://$(docker-machine ip mh-keystore):8500" --engine-opt="cluster-advertise=eth1:2376" mhs-demo1
