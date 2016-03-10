@@ -94,6 +94,8 @@ alias dkm=DockerMachine
 function DockerMachine() {
   docker-machine "$@" 
 }
+alias sdm1='sdm easjerrysolr1'
+alias sdm2='sdm easjerrysolr2'
 alias sdm=SwitchDockerMachine
 function SwitchDockerMachine() {
   eval "$(docker-machine env "$@")"
