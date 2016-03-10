@@ -35,6 +35,7 @@ alias di12='docker inspect solr12|more'
 alias di21='docker inspect solr21|more'
 alias di22='docker inspect solr22|more'
 alias dfs='docker exec -ti farmtoschoolcensus.fns.usda.gov bash'
+alias rbb='docker run -ti --rm --net=solr-net  busybox'
 alias dcomp=DockerCompose 
 function DockerCompose { 
   docker-compose "$@" 
