@@ -24,12 +24,20 @@ alias s1='ssh -i /Users/jerrydev/.ssh/jerry jeshbaugh@162.79.27.42'
 alias s2='ssh -i /Users/jerrydev/.ssh/jerry jeshbaugh@162.79.27.44'
 
 #docker
+alias dk=Docker
+function Docker {
+  docker "$@"
+}
+alias dkp='docker ps -a'
+alias dn=DockerNetwork
+function DockerNetwork() {
+  docker network "$@"
+}
 alias ds11='docker exec -ti solr11 bash'
 alias ds12='docker exec -ti solr12 bash'
 alias ds21='docker exec -ti solr21 bash'
 alias ds22='docker exec -ti solr22 bash'
 alias dz='docker exec -ti zookeeper bash'
-alias dpa='docker ps -a'
 alias di11='docker inspect solr11|more'
 alias di12='docker inspect solr12|more'
 alias di21='docker inspect solr21|more'
@@ -95,7 +103,7 @@ alias dkm=DockerMachine
 function DockerMachine() {
   docker-machine "$@" 
 }
-alias sdm1='sdm easjerrysolr1'
+alias sdm1='sdm easjerrysolr-1'
 alias sdm2='sdm easjerrysolr2'
 alias sdm=SwitchDockerMachine
 function SwitchDockerMachine() {

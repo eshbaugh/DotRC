@@ -3,12 +3,13 @@
 # Solr1: publicIP: 162.79.27.42    PrivateIP: 192.168.25.90
 # Solr1: publicIP: 162.79.27.44    PrivateIP: 192.168.25.91
 
-if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
+#if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
+if [ $HOSTNAME = "easjerrysolr1" ]; then
   # This is the host IP for the other server
   SOLR1=solr11
   SOLR2=solr12
 
-elif [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
+elif [ $HOSTNAME = "easjerrysolr2" ]; then
   # This is the host IP for the other server
   # TEST BOTH WITH THE SAME NAME
   SOLR1=solr11
@@ -26,8 +27,8 @@ ZK_PORT=2181
 
 # we need zookeeper running on both hosts or --link zookeeper:ZK failes
 echo "running ZK"
-if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
-  docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 jplock/zookeeper
+if [ $HOSTNAME = "easjerrysolr1novalocal" ]; then
+  docker run --name zookeeper -d -p 2181:2181 -p 2888:2888 -p 3888:3888 --net=solr-net jplock/zookeeper
 fi
 
 IPP1=$IP1':'$ZK_PORT

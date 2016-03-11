@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-if [ $HOSTNAME = "easjerrysolr.novalocal" ]; then
+if [ $HOSTNAME = "easjerrysolr1" ]; then
   SOLR1=solr11
-elif [ $HOSTNAME = "easjerrysolr2.novalocal" ]; then
+elif [ $HOSTNAME = "easjerrysolr2" ]; then
   # Test both using solr11
   SOLR1=solr11
+else
+  echo "Invalid hostname:" $HOSTNAME
+  exit -1
 fi
 
 # create sample data
@@ -21,3 +24,5 @@ docker exec -it --user=solr $SOLR1  bin/solr create_collection -c $EG -p 8983
 docker exec -it --user=solr $SOLR1  bin/post -c $EG example/exampledocs/manufacturers.xml
 
 echo "done"
+
+exit 0
