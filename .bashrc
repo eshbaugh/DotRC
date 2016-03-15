@@ -100,7 +100,7 @@ function BackupState() {
 } 
 alias dkm=DockerMachine
 function DockerMachine() {
-  docker-machine "$@" 
+  /usr/local/bin/docker-machine "$@" 
 }
 alias sdm1='sdm easjerrysolr-1'
 alias sdm2='sdm easjerrysolr2'
