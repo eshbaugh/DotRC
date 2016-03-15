@@ -34,7 +34,7 @@ function Docker {
   docker "$@"
 }
 alias dkp='docker ps -a'
-alias dn=DockerNetwork
+alias dkn=DockerNetwork
 function DockerNetwork() {
   docker network "$@"
 }
