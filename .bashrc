@@ -92,13 +92,34 @@ function HighState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
+alias scs=ConsulState 
+function ConsulState() { 
+  > /var/log/salt/minion 
+  > /var/log/salt/master 
+  echo "ConsulState..." 
+  salt -G 'role:web' state.apply consul/init
+  echo "Minion Log----------" 
+  cat /var/log/salt/minion 
+  echo "Master Log----------" 
+  cat /var/log/salt/master 
+} 
+alias sds=DockerState 
+function DockerState() { 
+  > /var/log/salt/minion 
+  > /var/log/salt/master 
+  echo "DockerState..." 
+  salt -G 'role:web' state.apply docker/network
+  echo "Minion Log----------" 
+  cat /var/log/salt/minion 
+  echo "Master Log----------" 
+  cat /var/log/salt/master 
+} 
 alias sbs=BackupState 
 function BackupState() { 
   > /var/log/salt/minion 
   > /var/log/salt/master 
   echo "BackupState..." 
   salt -G 'role:web' state.apply cloud-backup/backup
-#  salt -G 'role:web' state.apply cloud-backup/junk
   echo "Minion Log----------" 
   cat /var/log/salt/minion 
   echo "Master Log----------" 
