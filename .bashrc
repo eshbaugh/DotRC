@@ -19,6 +19,7 @@ alias viv='vi ~/.vimrc'
 alias gri='cat /etc/*release'
 
 #RedHat/Centos
+alias vids='vi /etc/systemd/system/docker.service'
 alias syc=SysCtl
 function SysCtl() {
   sudo systemctl "$@" 
