@@ -7,7 +7,7 @@ fi
 
 # User specific aliases and functions
 
-#general
+#linux
 alias rm='rm -i' 
 alias cp='cp -i' 
 alias mv='mv -i' 
@@ -17,6 +17,13 @@ alias h='history'
 alias vib='vi ~/.bashrc ; source ~/.bashrc'
 alias viv='vi ~/.vimrc'
 alias gri='cat /etc/*release'
+
+#RedHat/Centos
+alias syc=SysCtl
+function SysCtl() {
+  sudo systemctl "$@" 
+}
+
 
 alias cfi=CountFiles
 function CountFiles() {
