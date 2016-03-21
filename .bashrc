@@ -56,7 +56,7 @@ alias di12='docker inspect solr12|more'
 alias di21='docker inspect solr21|more'
 alias di22='docker inspect solr22|more'
 alias dfs='docker exec -ti farmtoschoolcensus.fns.usda.gov bash'
-alias rbb='docker run -ti --rm --net=solr-net  busybox'
+alias rbb='docker run -ti --rm --net=farmtoschoolcensus-fns-usda-net busybox'
 alias dcomp=DockerCompose 
 function DockerCompose { 
   docker-compose "$@" 
@@ -111,12 +111,12 @@ function ConsulState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-alias sds=DockerState 
-function DockerState() { 
+alias szs=ZooState 
+function ZooState() { 
   > /var/log/salt/minion 
   > /var/log/salt/master 
-  echo "DockerState..." 
-  salt -G 'role:web' state.apply docker/network
+  echo "ZooState..." 
+  salt -G 'role:sysop' state.apply zoo
   echo "Minion Log----------" 
   cat /var/log/salt/minion 
   echo "Master Log----------" 
