@@ -62,9 +62,11 @@ alias gta='git add .'
 alias gtd='git diff'
 alias gts='git status'
 alias gtv='git remote -v'
+alias gtpu='git push'
+alias gtpl='git pull'
 alias gtc=GitCommit
 function GitCommit {
-  git commit -m ""$@""
+  git commit -m "$@"
 }
 
 
