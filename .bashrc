@@ -46,27 +46,26 @@ alias dkn=DockerNetwork
 function DockerNetwork() {
   docker network "$@"
 }
-alias ds11='docker exec -ti solr11 bash'
-alias ds12='docker exec -ti solr12 bash'
-alias ds21='docker exec -ti solr21 bash'
-alias ds22='docker exec -ti solr22 bash'
-alias dz='docker exec -ti zookeeper bash'
-alias di11='docker inspect solr11|more'
-alias di12='docker inspect solr12|more'
-alias di21='docker inspect solr21|more'
-alias di22='docker inspect solr22|more'
-alias dfs='docker exec -ti farmtoschoolcensus.fns.usda.gov bash'
-alias rbb='docker run -ti --rm --net=farmtoschoolcensus-fns-usda-net busybox'
+alias dke=DockerExec
+function DockerExec {
+  docker exec -ti "$@" /bin/bash
+}
 alias dcomp=DockerCompose 
 function DockerCompose { 
   docker-compose "$@" 
 } 
 
+alias rbb='docker run -ti --rm --net=farmtoschoolcensus-fns-usda-net busybox'
+
 #git
-alias ga='git add .'
-alias gd='git diff'
-alias gs='git status'
-alias gv='git remote -v'
+alias gta='git add .'
+alias gtd='git diff'
+alias gts='git status'
+alias gtv='git remote -v'
+alias gtc=GitCommit
+function GitCommit {
+  git commit -m ""$@""
+}
 
 
 #WebDav
