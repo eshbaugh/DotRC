@@ -46,6 +46,10 @@ alias dkn=DockerNetwork
 function DockerNetwork() {
   docker network "$@"
 }
+alias dkr=DockerRun
+function DockerRun {
+  docker run -d "$@"
+}
 alias dke=DockerExec
 function DockerExec {
   docker exec -ti "$@" /bin/bash
@@ -64,10 +68,15 @@ alias gts='git status'
 alias gtv='git remote -v'
 alias gtph='git push'
 alias gtpl='git pull'
-alias gtc=GitCommit
+alias gtct=GitCommit
 function GitCommit {
   git commit -m "$@"
 }
+alias gtco=GitCheckout
+function GitCheckout {
+  git checkout "$@"
+}
+
 
 
 #WebDav
