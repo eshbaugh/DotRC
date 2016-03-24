@@ -88,17 +88,6 @@ alias cds='cd /srv/salt'
 alias cdt='cd /app/test'
 alias cdv='cd /mnt/cloud-backup'
 alias tl='cat /var/log/rsync*'
-alias sas=HighApplyState 
-function HighApplyState() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "Apply state cloud-backup..." 
-  salt "$@" '*' state.apply cloud-backup 
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
-} 
 alias shs=HighState 
 function HighState() { 
   > /var/log/salt/minion 
@@ -110,8 +99,30 @@ function HighState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-alias scs=ConsulState 
-function ConsulState() { 
+alias sas=CloudApplyState 
+function CloudApplyState() { 
+  > /var/log/salt/minion 
+  > /var/log/salt/master 
+  echo "Apply state..." 
+  salt -G role:web state.apply "$@" 
+  echo "Minion Log----------" 
+  cat /var/log/salt/minion 
+  echo "Master Log----------" 
+  cat /var/log/salt/master 
+} 
+alias sns=NetworkApplyState 
+function NetworkApplyState() { 
+  > /var/log/salt/minion 
+  > /var/log/salt/master 
+  echo "Apply network state..." 
+  salt -G role:web state.apply docker/network
+  echo "Minion Log----------" 
+  cat /var/log/salt/minion 
+  echo "Master Log----------" 
+  cat /var/log/salt/master 
+} 
+alias scs=ConsulApplyState 
+function ConsulApplyState() { 
   > /var/log/salt/minion 
   > /var/log/salt/master 
   echo "ConsulState..." 
@@ -127,6 +138,7 @@ function ZooState() {
   > /var/log/salt/master 
   echo "ZooState..." 
   salt -G 'role:sysop' state.apply zoo
+  salt -G 'role:sysop' state.apply zoo/zk-web
   echo "Minion Log----------" 
   cat /var/log/salt/minion 
   echo "Master Log----------" 
