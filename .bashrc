@@ -99,12 +99,12 @@ function HighState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-alias sas=CloudApplyState 
-function CloudApplyState() { 
+alias sas=ApplyState 
+function ApplyState() { 
   > /var/log/salt/minion 
   > /var/log/salt/master 
   echo "Apply state..." 
-  salt -G role:web state.apply "$@" 
+  salt -G 'role:web' state.apply "$@" 
   echo "Minion Log----------" 
   cat /var/log/salt/minion 
   echo "Master Log----------" 
@@ -115,7 +115,7 @@ function NetworkApplyState() {
   > /var/log/salt/minion 
   > /var/log/salt/master 
   echo "Apply network state..." 
-  salt -G role:web state.apply docker/network
+  salt -G 'role:sysop' state.apply docker/network
   echo "Minion Log----------" 
   cat /var/log/salt/minion 
   echo "Master Log----------" 
@@ -126,14 +126,14 @@ function ConsulApplyState() {
   > /var/log/salt/minion 
   > /var/log/salt/master 
   echo "ConsulState..." 
-  salt -G 'role:web' state.apply consul/init
+  salt -G 'role:sysop' state.apply consul/init
   echo "Minion Log----------" 
   cat /var/log/salt/minion 
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-alias szs=ZooState 
-function ZooState() { 
+alias szs=ZooApplyState 
+function ZooApplyState() { 
   > /var/log/salt/minion 
   > /var/log/salt/master 
   echo "ZooState..." 
@@ -144,8 +144,8 @@ function ZooState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-alias sbs=BackupState 
-function BackupState() { 
+alias sbs=BackupApplyState 
+function BackupApplyState() { 
   > /var/log/salt/minion 
   > /var/log/salt/master 
   echo "BackupState..." 
