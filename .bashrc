@@ -20,6 +20,7 @@ alias gri='cat /etc/*release'
 
 #RedHat/Centos
 alias vids='vi /etc/systemd/system/docker.service'
+alias cdes='cd /etc/systemd/system'
 alias syc=SysCtl
 function SysCtl() {
   sudo systemctl "$@" 
