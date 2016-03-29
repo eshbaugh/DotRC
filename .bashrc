@@ -35,7 +35,10 @@ function CountFiles() {
 #solr
 alias jtz='bin/solr start -cloud -s /tmp/solr-node1 -p 8983 -z localhost:2181'
 
-source ~/.jerry
+# Source global definitions
+if [ -f ~/.private_bashrc ]; then
+  . ~/.private_bashrc
+fi
 
 #docker
 alias dk=Docker
