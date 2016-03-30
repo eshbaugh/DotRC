@@ -5,6 +5,11 @@ if [ -f /etc/bashrc ]; then
 	. /etc/bashrc
 fi
 
+# Source private definitions
+if [ -f ~/.private_bashrc ]; then
+  . ~/.private_bashrc
+fi
+
 # User specific aliases and functions
 
 #linux
@@ -35,10 +40,6 @@ function CountFiles() {
 #solr
 alias jtz='bin/solr start -cloud -s /tmp/solr-node1 -p 8983 -z localhost:2181'
 
-# Source global definitions
-if [ -f ~/.private_bashrc ]; then
-  . ~/.private_bashrc
-fi
 
 #docker
 alias dk=Docker
@@ -170,7 +171,3 @@ function SwitchDockerMachine() {
   eval "$(docker-machine env "$@")"
 }
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
