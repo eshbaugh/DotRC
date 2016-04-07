@@ -66,6 +66,10 @@ function DockerCompose {
 
 alias rbb='docker run -ti --rm --net=farmtoschoolcensus-fns-usda-net busybox'
 
+#consul
+alias coni='consul info -rpc-addr=192.168.25.32:8400'
+alias conm='consul members -rpc-addr=192.168.25.32:8400'
+
 #git
 alias gta='git add .'
 alias gtd='git diff'
