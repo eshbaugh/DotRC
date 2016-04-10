@@ -64,6 +64,19 @@ function DockerCompose {
   docker-compose "$@" 
 } 
 
+# Docker Machine
+alias dkm=DockerMachine
+function DockerMachine() {
+  /usr/local/bin/docker-machine "$@" 
+}
+alias sdm1='sdm easjerrysolr-1'
+alias sdm2='sdm easjerrysolr2'
+alias sdm=SwitchDockerMachine
+function SwitchDockerMachine() {
+  eval "$(docker-machine env "$@")"
+}
+
+
 alias rbb='docker run -ti --rm --net=farmtoschoolcensus-fns-usda-net busybox'
 
 #consul
@@ -106,76 +119,60 @@ function HighState() {
   > /var/log/salt/minion 
   > /var/log/salt/master 
   echo "HighState..." 
-  salt "$@" '*' state.highstate
+  salt '*' state.highstate
   echo "Minion Log----------" 
   cat /var/log/salt/minion 
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-alias sas=ApplyState 
-function ApplyState() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "Apply state..." 
-  salt -G 'role:web' state.apply "$@" 
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
-} 
-alias sns=NetworkApplyState 
-function NetworkApplyState() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "Apply network state..." 
-  salt -G 'role:sysop' state.apply docker/network
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
-} 
-alias scs=ConsulApplyState 
-function ConsulApplyState() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "ConsulState..." 
-  salt -G 'role:sysop' state.apply consul/init
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
-} 
-alias szs=ZooApplyState 
-function ZooApplyState() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "ZooState..." 
-  salt -G 'role:sysop' state.apply zoo
-  salt -G 'role:sysop' state.apply zoo/zk-web
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
-} 
-alias sbs=BackupApplyState 
-function BackupApplyState() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "BackupState..." 
-  salt -G 'role:web' state.apply cloud-backup/backup
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
-} 
-alias dkm=DockerMachine
-function DockerMachine() {
-  /usr/local/bin/docker-machine "$@" 
+# cluster management with salt
+alias stp='salt "*" test.ping' 
+alias shs3=HighState3 
+function HighState3() {
+  ClearLogs
+  echo "High state web 3..." 
+  salt 'stage-web3.novalocal' state.highstate 
+  CatLogs
 }
-alias sdm1='sdm easjerrysolr-1'
-alias sdm2='sdm easjerrysolr2'
-alias sdm=SwitchDockerMachine
-function SwitchDockerMachine() {
-  eval "$(docker-machine env "$@")"
+function ClearLogs() {
+  > /var/log/salt/minion
+  > /var/log/salt/master 
 }
+function CatLogs() {
+  echo "Minion Log----------" 
+  cat /var/log/salt/minion 
+  echo "Master Log----------" 
+  cat /var/log/salt/master 
+}
+alias sas3=ApplyState3 
+function ApplyState3() { 
+  > /var/log/salt/minion 
+  > /var/log/salt/master 
+  echo "Apply state web 3..." 
+  salt 'stage-web3.novalocal' -G 'role:solr' state.apply solr 
+  echo "Minion Log----------" 
+  cat /var/log/salt/minion 
+  echo "Master Log----------" 
+  cat /var/log/salt/master 
+} 
+
+alias s1=RemoteStateWeb1
+function RemoteStateWeb1 {
+  salt 'stage-web1.novalocal' $@
+}
+
+alias s2=RemoteStateWeb1
+function RemoteStateWeb1 {
+  salt 'stage-web2.novalocal' $@
+}
+
+alias s1c=RemoteStateWeb1
+function RemoteStateWeb1 {
+  salt 'stage-web1.novalocal' cmd.run $@
+}
+alias s2c=RemoteStateWeb2
+function RemoteStateWeb2 {
+  salt 'stage-web2.novalocal' cmd.run $@
+}
+
 
