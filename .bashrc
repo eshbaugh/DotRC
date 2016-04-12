@@ -47,6 +47,7 @@ function Docker {
   docker "$@"
 }
 alias dkp='docker ps -a'
+alias dkrma='docker rm -fv `docker ps -qa`'
 alias dkn=DockerNetwork
 function DockerNetwork() {
   docker network "$@"
