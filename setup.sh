@@ -12,5 +12,10 @@ cp ~/.gitconfig ~/.gitconfig.bak
 rm ~/.gitconfig 
 ln -s DotRC/.gitconfig ~/.gitconfig
 
+cp ~/.gitignore ~/.gitignore.bak
+rm ~/.gitignore
+ln -s DotRC/.gitignore ~/.gitignore
+git config --global core.excludesfile ~/.gitignore
+
 # this does not work the data is sourced into the bash script not ssh shell
 #source ../.bashrc
