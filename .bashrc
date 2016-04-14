@@ -135,6 +135,15 @@ function HighState3() {
   salt 'stage-web3.novalocal' state.highstate 
   CatLogs
 }
+alias shs4=HighState4
+function HighState4() {
+  ClearLogs
+  echo "High state web 4..."
+# --state-output=mixed
+# --state-verbose=false
+  salt 'stage-web4.novalocal' --state-output=mixed state.highstate
+  CatLogs
+}
 function ClearLogs() {
   > /var/log/salt/minion
   > /var/log/salt/master 
@@ -156,7 +165,17 @@ function ApplyState3() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-
+alias sas4=ApplyState4 
+function ApplyState4() { 
+  > /var/log/salt/minion 
+  > /var/log/salt/master 
+  echo "Apply state web 4..." 
+  salt 'stage-web4.novalocal' -G 'role:solr' state.apply solr 
+  echo "Minion Log----------" 
+  cat /var/log/salt/minion 
+  echo "Master Log----------" 
+  cat /var/log/salt/master 
+} 
 alias s1=RemoteStateWeb1
 function RemoteStateWeb1 {
   salt 'stage-web1.novalocal' $@
