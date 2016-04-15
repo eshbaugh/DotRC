@@ -128,20 +128,33 @@ function HighState() {
 } 
 # cluster management with salt
 alias stp='salt "*" test.ping' 
-alias shs3=HighState3 
-function HighState3() {
+alias shs1=HighState1 
+function HighState1() {
   ClearLogs
-  echo "High state web 3..." 
-  salt 'stage-web3.novalocal' state.highstate 
+  echo "High state web 1..." 
+# --state-output=mixed # --state-verbose=false
+  salt 'stage-web1.novalocal' --state-output=mixed state.highstate 
   CatLogs
 }
-alias shs4=HighState4
-function HighState4() {
+alias shs2=HighState2
+function HighState2() {
   ClearLogs
-  echo "High state web 4..."
-# --state-output=mixed
-# --state-verbose=false
+  echo "High state web 2..."
   salt 'stage-web4.novalocal' --state-output=mixed state.highstate
+  CatLogs
+}
+alias sas1=ApplyState1
+function ApplyState1() {
+  ClearLogs
+  echo "Apply state web 1..."
+  salt 'stage-web1.novalocal' state.apply solr
+  CatLogs
+}
+alias sas2=ApplyState2
+function ApplyState2() {
+  ClearLogs
+  echo "Apply state web 2..."
+  salt 'stage-web2.novalocal' state.apply solr
   CatLogs
 }
 function ClearLogs() {
@@ -154,28 +167,6 @@ function CatLogs() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 }
-alias sas3=ApplyState3 
-function ApplyState3() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "Apply state web 3..." 
-  salt 'stage-web3.novalocal' -G 'role:solr' state.apply solr 
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
-} 
-alias sas4=ApplyState4 
-function ApplyState4() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "Apply state web 4..." 
-  salt 'stage-web4.novalocal' -G 'role:solr' state.apply solr 
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
-} 
 alias s1=RemoteStateWeb1
 function RemoteStateWeb1 {
   salt 'stage-web1.novalocal' $@
