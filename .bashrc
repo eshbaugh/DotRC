@@ -22,6 +22,10 @@ alias h='history'
 alias vib='vi ~/.bashrc ; source ~/.bashrc'
 alias viv='vi ~/.vimrc'
 alias gri='cat /etc/*release'
+alias vig=ViGrep
+function ViGrep(){ 
+  vi `grep -rl "$@"`
+}
 
 #RedHat/Centos
 alias vids='vi /etc/systemd/system/docker.service'
