@@ -119,6 +119,19 @@ alias cds='cd /srv/salt'
 alias cdt='cd /app/test'
 alias cdv='cd /mnt/cloud-backup'
 alias tl='cat /var/log/rsync*'
+# cluster management with salt
+alias stp='salt "*" test.ping' 
+function ClearLogs() {
+  > /var/log/salt/minion
+  > /var/log/salt/master 
+  echo "Minion and Master Salt Logs Cleared"
+}
+function CatLogs() {
+  echo "Minion Log----------" 
+  cat /var/log/salt/minion 
+  echo "Master Log----------" 
+  cat /var/log/salt/master 
+}
 alias shs=HighState 
 function HighState() { 
   > /var/log/salt/minion 
@@ -130,8 +143,13 @@ function HighState() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 } 
-# cluster management with salt
-alias stp='salt "*" test.ping' 
+alias shss=HighStateSysOp
+function HighStateSysOp() {
+  ClearLogs
+  echo "High state SysOp..."
+  salt 'stage-sysop.novalocal' --state-output=mixed state.highstate
+  CatLogs
+}
 alias shs1=HighState1 
 function HighState1() {
   ClearLogs
@@ -144,7 +162,7 @@ alias shs2=HighState2
 function HighState2() {
   ClearLogs
   echo "High state web 2..."
-  salt 'stage-web4.novalocal' --state-output=mixed state.highstate
+  salt 'stage-web2.novalocal' --state-output=mixed state.highstate
   CatLogs
 }
 alias sas1=ApplyState1
@@ -160,16 +178,6 @@ function ApplyState2() {
   echo "Apply state web 2..."
   salt 'stage-web2.novalocal' state.apply solr
   CatLogs
-}
-function ClearLogs() {
-  > /var/log/salt/minion
-  > /var/log/salt/master 
-}
-function CatLogs() {
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
 }
 alias s1=RemoteStateWeb1
 function RemoteStateWeb1 {
