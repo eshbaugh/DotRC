@@ -122,6 +122,7 @@ alias tl='cat /var/log/rsync*'
 # cluster management with salt
 alias stp='salt "*" test.ping' 
 function ClearLogs() {
+  echo "###############################################################################"
   > /var/log/salt/minion
   > /var/log/salt/master 
   echo "Minion and Master Salt Logs Cleared"
@@ -134,14 +135,10 @@ function CatLogs() {
 }
 alias shs=HighState 
 function HighState() { 
-  > /var/log/salt/minion 
-  > /var/log/salt/master 
-  echo "HighState..." 
+  ClearLogs
+  echo "HighState Star..." 
   salt '*' state.highstate
-  echo "Minion Log----------" 
-  cat /var/log/salt/minion 
-  echo "Master Log----------" 
-  cat /var/log/salt/master 
+  CatLogs
 } 
 alias shss=HighStateSysOp
 function HighStateSysOp() {
