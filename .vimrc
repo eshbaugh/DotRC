@@ -3,8 +3,9 @@ set autoindent
 set shiftwidth=2
 set tabstop=2
 
-" Next file when  editing multiple files 
-map v :n<CR>
+" Next/previous file when  editing multiple files 
+map f :next<CR>
+map g :prev<CR>
 
 " Page up / down
 map m  
