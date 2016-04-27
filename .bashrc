@@ -96,7 +96,7 @@ alias gtv='git remote -v'
 alias gtph='git push'
 alias gtpha=' cd ~/DotRC; git push; cd /srv/pillar; git push; cd /srv/salt; git push'
 alias gtpl='git pull'
-alias gtpla=' cd ~/DotRC; git pull; cd /srv/pillar; git pull; cd /srv/salt; git pull'
+alias gtpla=' cd ~/DotRC; git pull; cd /srv/pillar; git pull; cd /srv/salt; git pull; cd /srv/gov-zookeeper; git pull'
 
 
 alias gtct=GitCommit
@@ -116,6 +116,7 @@ alias cad='cadaver https://www.cloudvault.usda.gov/remote.php/webdav/'
 #salt
 alias cdp='cd /srv/pillar' 
 alias cds='cd /srv/salt' 
+alias cdz='cd /srv/gov-zookeeper'
 alias cdt='cd /app/test'
 alias cdv='cd /mnt/cloud-backup'
 alias tl='cat /var/log/rsync*'
@@ -165,15 +166,15 @@ function HighState2() {
 alias sas1=ApplyState1
 function ApplyState1() {
   ClearLogs
-  echo "Apply state web 1..."
-  salt 'stage-web1.novalocal' state.apply solr
+  echo "Apply zoo state web 1..."
+  salt 'stage-web1.novalocal' state.apply zoo
   CatLogs
 }
 alias sas2=ApplyState2
 function ApplyState2() {
   ClearLogs
-  echo "Apply state web 2..."
-  salt 'stage-web2.novalocal' state.apply solr
+  echo "Apply zoo state web 2..."
+  salt 'stage-web2.novalocal' state.apply zoo
   CatLogs
 }
 alias s1=RemoteStateWeb1
