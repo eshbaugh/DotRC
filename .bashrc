@@ -137,8 +137,8 @@ function CatLogs() {
 alias shs=HighState 
 function HighState() { 
   ClearLogs
-  echo "HighState Star..." 
-  salt '*' state.highstate
+  echo "HighState * ..." 
+  salt '*' --state-output=mixed state.highstate 
   CatLogs
 } 
 alias shss=HighStateSysOp
@@ -175,6 +175,21 @@ function ApplyState2() {
   ClearLogs
   echo "Apply zoo state web 2..."
   salt 'stage-web2.novalocal' state.apply zoo
+  CatLogs
+}
+alias sas3=ApplyState3
+function ApplyState3() {
+  ClearLogs
+  echo "Apply zoo state web 3..."
+  salt 'stage-web3.novalocal' state.apply zoo
+  CatLogs
+}
+
+alias sass=ApplyStateS
+function ApplyStateS() {
+  ClearLogs
+  echo "Apply zoo state Sysop..."
+  salt 'stage-sysop.novalocal' state.apply zoo
   CatLogs
 }
 alias s1=RemoteStateWeb1
