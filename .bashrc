@@ -166,8 +166,8 @@ function HighState2() {
 alias sas1=ApplyState1
 function ApplyState1() {
   ClearLogs
-  echo "Apply zoo state web 1..."
-  salt 'stage-web1.novalocal' state.apply zoo
+  echo "Apply solr state web 1..."
+  salt 'stage-web1.novalocal' state.apply solr
   CatLogs
 }
 alias sas2=ApplyState2
@@ -182,14 +182,6 @@ function ApplyState3() {
   ClearLogs
   echo "Apply zoo state web 3..."
   salt 'stage-web3.novalocal' state.apply zoo
-  CatLogs
-}
-
-alias sass=ApplyStateS
-function ApplyStateS() {
-  ClearLogs
-  echo "Apply zoo state Sysop..."
-  salt 'stage-sysop.novalocal' state.apply zoo
   CatLogs
 }
 alias s1=RemoteStateWeb1
@@ -212,3 +204,29 @@ function RemoteStateWeb2 {
 }
 
 
+#Zookeeper
+
+alias zkcpid="salt -G 'role:zookeeper' state.apply zoo/copy-myid"
+alias zkweb="salt -G 'role:zookeeper' state.apply zoo/zk-web"
+
+alias zkstat=ZooKeeperStatus 
+function ZooKeeperStatus {
+  echo "Zookeeper status"
+  salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
+  salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
+  salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
+}
+alias zkstart=ZooKeeperStart 
+function ZooKeeperStart {
+  echo "Zookeeper Start"
+  salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
+  salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
+  salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
+}
+alias zkstop=ZooKeeperStop 
+function ZooKeeperStop {
+  echo "Zookeeper stop"
+  salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
+  salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
+  salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
+}
