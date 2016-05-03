@@ -41,8 +41,6 @@ function CountFiles() {
   find "$@" -type f | wc -l  
 }
 
-#solr
-alias jtz='bin/solr start -cloud -s /tmp/solr-node1 -p 8983 -z localhost:2181'
 
 
 #docker
@@ -210,23 +208,61 @@ alias zkcpid="salt -G 'role:zookeeper' state.apply zoo/copy-myid"
 alias zkweb="salt -G 'role:zookeeper' state.apply zoo/zk-web"
 
 alias zkstat=ZooKeeperStatus 
-function ZooKeeperStatus {
+function ZooKeeperStatus(){
   echo "Zookeeper status"
   salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
   salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
   salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
 }
-alias zkstart=ZooKeeperStart 
-function ZooKeeperStart {
+alias zkstart=ZooKeeperStart
+function ZooKeeperStart() {
   echo "Zookeeper Start"
   salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
   salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
   salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
 }
 alias zkstop=ZooKeeperStop 
-function ZooKeeperStop {
+function ZooKeeperStop() {
   echo "Zookeeper stop"
   salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
   salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
   salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
 }
+alias zkrun=ZooKeeperRun 
+function ZooKeeperRun() {
+  echo "Zookeeper total startup"
+
+  echo "removing all containers  total startup"
+  salt -G 'role:zookeeper' cmd.run 'docker rm -fv `docker ps -qa`'
+
+  echo "creating all zoo containers"
+  salt -G 'role:zookeeper' state.apply zoo
+
+  echo "stop all zoo processes"
+  ZooKeeperStop
+
+  echo "Install zk web"
+  salt -G 'role:zookeeper' state.apply zoo/zk-web
+
+  echo "copy my id"
+  salt -G 'role:zookeeper' state.apply zoo/copy-myid
+
+  echo "start zookeper processes"
+  ZooKeeperStart
+
+  ZooKeeperStatus
+
+}
+
+#solr
+alias jtz='bin/solr start -cloud -s /tmp/solr-node1 -p 8983 -z localhost:2181'
+
+alias solrrun=SolrRun
+function SolrRun() {
+  echo "Running solr on web1"
+
+  echo "create solr container"
+  salt 'stage-web1.novalocal' state.apply solr 
+  
+}
+
