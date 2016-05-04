@@ -35,33 +35,44 @@ function SysCtl() {
   sudo systemctl "$@" 
 }
 
-
 alias cfi=CountFiles
 function CountFiles() {
   find "$@" -type f | wc -l  
 }
 
 
-
 #docker
+
 alias dk=Docker
 function Docker {
   docker "$@"
 }
+
 alias dkp='docker ps -a'
+
 alias dkrma='docker rm -fv `docker ps -qa`'
+
+alias dkrmac=RemoveAllContainers 
+function RemoveAllContainers() {
+  echo "Removing all containers "
+  salt '*' cmd.run 'docker rm -fv `docker ps -qa`'
+}
+
 alias dkn=DockerNetwork
 function DockerNetwork() {
   docker network "$@"
 }
+
 alias dkr=DockerRun
 function DockerRun {
   docker run -d "$@"
 }
+
 alias dke=DockerExec
 function DockerExec {
   docker exec -ti "$@" /bin/bash
 }
+
 alias dcomp=DockerCompose 
 function DockerCompose { 
   docker-compose "$@" 
@@ -204,9 +215,6 @@ function RemoteStateWeb2 {
 
 #Zookeeper
 
-alias zkcpid="salt -G 'role:zookeeper' state.apply zoo/copy-myid"
-alias zkweb="salt -G 'role:zookeeper' state.apply zoo/zk-web"
-
 alias zkstat=ZooKeeperStatus 
 function ZooKeeperStatus(){
   echo "Zookeeper status"
@@ -217,9 +225,10 @@ function ZooKeeperStatus(){
 alias zkstart=ZooKeeperStart
 function ZooKeeperStart() {
   echo "Zookeeper Start"
-  salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
-  salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
-  salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
+  salt -G 'role:zookeeper' state.apply zoo
+#  salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
+#  salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
+#  salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
 }
 alias zkstop=ZooKeeperStop 
 function ZooKeeperStop() {
@@ -228,31 +237,7 @@ function ZooKeeperStop() {
   salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
   salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
 }
-alias zkrun=ZooKeeperRun 
-function ZooKeeperRun() {
-  echo "Zookeeper total startup"
 
-  echo "removing all containers  total startup"
-  salt -G 'role:zookeeper' cmd.run 'docker rm -fv `docker ps -qa`'
-
-  echo "creating all zoo containers"
-  salt -G 'role:zookeeper' state.apply zoo
-
-  echo "stop all zoo processes"
-  ZooKeeperStop
-
-  echo "Install zk web"
-  salt -G 'role:zookeeper' state.apply zoo/zk-web
-
-  echo "copy my id"
-  salt -G 'role:zookeeper' state.apply zoo/copy-myid
-
-  echo "start zookeper processes"
-  ZooKeeperStart
-
-  ZooKeeperStatus
-
-}
 
 #solr
 alias jtz='bin/solr start -cloud -s /tmp/solr-node1 -p 8983 -z localhost:2181'
@@ -262,7 +247,16 @@ function SolrRun() {
   echo "Running solr on web1"
 
   echo "create solr container"
-  salt 'stage-web1.novalocal' state.apply solr 
-  
+#  salt -G 'role:zookeeper' state.apply solr
+  salt 'stage-web1.novalocal' state.apply solr
 }
 
+alias solr=Solr 
+function Solr(){
+  arg="$@" 
+  echo "Solr wildcard:" $arg 
+
+  salt 'stage-web1.novalocal' cmd.run "docker exec   snaped.fns.usda.gov_stage-web1_solr /opt/solr/bin/solr $arg"
+  salt 'stage-web2.novalocal' cmd.run "docker exec   snaped.fns.usda.gov_stage-web2_solr /opt/solr/bin/solr $arg"
+  salt 'stage-web3.novalocal' cmd.run "docker exec   snaped.fns.usda.gov_stage-web3_solr /opt/solr/bin/solr $arg"
+}
