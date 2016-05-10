@@ -83,19 +83,12 @@ alias dkm=DockerMachine
 function DockerMachine() {
   /usr/local/bin/docker-machine "$@" 
 }
-alias sdm1='sdm easjerrysolr-1'
-alias sdm2='sdm easjerrysolr2'
 alias sdm=SwitchDockerMachine
 function SwitchDockerMachine() {
   eval "$(docker-machine env "$@")"
 }
 
-
 alias rbb='docker run -ti --rm --net=farmtoschoolcensus-fns-usda-net busybox'
-
-#consul
-alias coni='consul info -rpc-addr=192.168.25.32:8400'
-alias conm='consul members -rpc-addr=192.168.25.32:8400'
 
 #git
 alias gta='git add .'
@@ -116,8 +109,6 @@ alias gtco=GitCheckout
 function GitCheckout {
   git checkout "$@"
 }
-
-
 
 #WebDav
 alias cad='cadaver https://www.cloudvault.usda.gov/remote.php/webdav/'
@@ -162,80 +153,67 @@ function HighState1() {
   ClearLogs
   echo "High state web 1..." 
 # --state-output=mixed # --state-verbose=false
-  salt 'stage-web1.novalocal' --state-output=mixed state.highstate 
+  salt $WEB1 --state-output=mixed state.highstate 
   CatLogs
 }
 alias shs2=HighState2
 function HighState2() {
   ClearLogs
   echo "High state web 2..."
-  salt 'stage-web2.novalocal' --state-output=mixed state.highstate
+  salt $WEB2 --state-output=mixed state.highstate
   CatLogs
 }
 alias sas1=ApplyState1
 function ApplyState1() {
   ClearLogs
-  echo "Apply solr state web 1..."
-  salt 'stage-web1.novalocal' state.apply solr
+  echo "Apply zoo state web 1..."
+  salt $WEB1 state.apply zoo
   CatLogs
 }
 alias sas2=ApplyState2
 function ApplyState2() {
   ClearLogs
   echo "Apply zoo state web 2..."
-  salt 'stage-web2.novalocal' state.apply zoo
+  salt $WEB2 state.apply zoo
   CatLogs
 }
 alias sas3=ApplyState3
 function ApplyState3() {
   ClearLogs
   echo "Apply zoo state web 3..."
-  salt 'stage-web3.novalocal' state.apply zoo
+  salt $WEB3 state.apply zoo
   CatLogs
 }
 alias s1=RemoteStateWeb1
 function RemoteStateWeb1 {
-  salt 'stage-web1.novalocal' $@
+  salt $WEB1 $@
 }
 
 alias s2=RemoteStateWeb1
 function RemoteStateWeb1 {
-  salt 'stage-web2.novalocal' $@
+  salt $WEB2 $@
 }
 
 alias s1c=RemoteStateWeb1
 function RemoteStateWeb1 {
-  salt 'stage-web1.novalocal' cmd.run $@
+  salt $WEB1 cmd.run $@
 }
 alias s2c=RemoteStateWeb2
 function RemoteStateWeb2 {
-  salt 'stage-web2.novalocal' cmd.run $@
+  salt $WEB2 cmd.run $@
 }
 
 
 #Zookeeper
 
-alias zkstat=ZooKeeperStatus 
-function ZooKeeperStatus(){
-  echo "Zookeeper status"
-  salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
-  salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
-  salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh status'
-}
-alias zkstart=ZooKeeperStart
-function ZooKeeperStart() {
-  echo "Zookeeper Start"
-  salt -G 'role:zookeeper' state.apply zoo
-#  salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
-#  salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
-#  salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh start'
-}
-alias zkstop=ZooKeeperStop 
-function ZooKeeperStop() {
-  echo "Zookeeper stop"
-  salt 'stage-web1.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web1_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
-  salt 'stage-web2.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web2_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
-  salt 'stage-web3.novalocal' cmd.run 'docker exec   snaped.fns.usda.gov_stage-web3_zookeeper  /opt/zookeeper/bin/zkServer.sh stop'
+alias zk=ZK
+function ZK(){
+  arg="$@"
+  echo "ZooKeeper wildcard:" $arg
+
+  salt $WEB1 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB1H"_zookeeper /opt/zookeeper/bin/zkServer.sh $arg"
+  salt $WEB2 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB2H"_zookeeper /opt/zookeeper/bin/zkServer.sh $arg"
+  salt $WEB3 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB3H"_zookeeper /opt/zookeeper/bin/zkServer.sh $arg"
 }
 
 
@@ -248,7 +226,7 @@ function SolrRun() {
 
   echo "create solr container"
 #  salt -G 'role:zookeeper' state.apply solr
-  salt 'stage-web1.novalocal' state.apply solr
+  salt $WEB1 state.apply solr
 }
 
 alias solr=Solr 
@@ -256,7 +234,13 @@ function Solr(){
   arg="$@" 
   echo "Solr wildcard:" $arg 
 
-  salt 'stage-web1.novalocal' cmd.run "docker exec   snaped.fns.usda.gov_stage-web1_solr /opt/solr/bin/solr $arg"
-  salt 'stage-web2.novalocal' cmd.run "docker exec   snaped.fns.usda.gov_stage-web2_solr /opt/solr/bin/solr $arg"
-  salt 'stage-web3.novalocal' cmd.run "docker exec   snaped.fns.usda.gov_stage-web3_solr /opt/solr/bin/solr $arg"
+  salt $WEB1 cmd.run "docker exec   snaped.fns.usda.gov_$WEB1H_solr /opt/solr/bin/solr $arg"
+  salt $WEB2 cmd.run "docker exec   snaped.fns.usda.gov_$WEB2H_solr /opt/solr/bin/solr $arg"
+  salt $WEB3 cmd.run "docker exec   snaped.fns.usda.gov_$WEB3H_solr /opt/solr/bin/solr $arg"
+}
+
+alias solrcol=SolrCollection
+function SolrCollection() {
+  echo "Solr wildcard:" $arg 
+  salt $WEB1 cmd.run "docker exec  snaped.fns.usda.gov_$WEB1H_solr bin/solr create_collection -c test -p 8983 -d /opt/solr/server" 
 }
