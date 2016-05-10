@@ -234,13 +234,13 @@ function Solr(){
   arg="$@" 
   echo "Solr wildcard:" $arg 
 
-  salt $WEB1 cmd.run "docker exec   snaped.fns.usda.gov_$WEB1H_solr /opt/solr/bin/solr $arg"
-  salt $WEB2 cmd.run "docker exec   snaped.fns.usda.gov_$WEB2H_solr /opt/solr/bin/solr $arg"
-  salt $WEB3 cmd.run "docker exec   snaped.fns.usda.gov_$WEB3H_solr /opt/solr/bin/solr $arg"
+  salt $WEB1 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB1H"_solr /opt/solr/bin/solr $arg"
+  salt $WEB2 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB2H"_solr /opt/solr/bin/solr $arg"
+  salt $WEB3 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB3H"_solr /opt/solr/bin/solr $arg"
 }
 
 alias solrcol=SolrCollection
 function SolrCollection() {
   echo "Solr wildcard:" $arg 
-  salt $WEB1 cmd.run "docker exec  snaped.fns.usda.gov_$WEB1H_solr bin/solr create_collection -c test -p 8983 -d /opt/solr/server" 
+  salt $WEB1 cmd.run "docker exec  snaped.fns.usda.gov_"$WEB1H"_solr bin/solr create_collection -c test -p 8983 -d /opt/solr/server" 
 }
