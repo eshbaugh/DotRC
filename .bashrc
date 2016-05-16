@@ -93,6 +93,7 @@ alias rbb='docker run -ti --rm --net=farmtoschoolcensus-fns-usda-net busybox'
 #git
 alias gta='git add .'
 alias gtd='git diff'
+alias gtds='git diff --staged'
 alias gts='git status'
 alias gtv='git remote -v'
 alias gtph='git push'
@@ -138,7 +139,8 @@ alias shs=HighState
 function HighState() { 
   ClearLogs
   echo "HighState * ..." 
-  salt '*' --state-output=mixed state.highstate 
+#  salt '*' --state-output=mixed state.highstate 
+  salt '*' state.highstate 
   CatLogs
 } 
 alias shss=HighStateSysOp
@@ -161,6 +163,13 @@ function HighState2() {
   ClearLogs
   echo "High state web 2..."
   salt $WEB2 --state-output=mixed state.highstate
+  CatLogs
+}
+alias shs3=HighState3
+function HighState3() {
+  ClearLogs
+  echo "High state web 3..."
+  salt $WEB3 --state-output=mixed state.highstate
   CatLogs
 }
 alias sas1=ApplyState1
