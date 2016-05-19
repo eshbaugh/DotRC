@@ -74,7 +74,7 @@ function DockerExec {
   docker exec -ti "$@" /bin/bash
 }
 
-alias dker=DockerExec
+alias dker=DockerExecRoot
 function DockerExecRoot {
   docker exec -ti --name=root "$@" /bin/bash
 }
