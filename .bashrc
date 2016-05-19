@@ -70,7 +70,8 @@ function DockerRun {
 
 alias dke=DockerExec
 function DockerExec {
-  docker exec -ti --name=root "$@" /bin/bash
+#  docker exec -ti --name=root "$@" /bin/bash
+  docker exec -ti "$@" /bin/bash
 }
 
 alias dcomp=DockerCompose 
