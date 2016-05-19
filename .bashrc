@@ -74,6 +74,11 @@ function DockerExec {
   docker exec -ti "$@" /bin/bash
 }
 
+alias dker=DockerExec
+function DockerExecRoot {
+  docker exec -ti --name=root "$@" /bin/bash
+}
+
 alias dcomp=DockerCompose 
 function DockerCompose { 
   docker-compose "$@" 
