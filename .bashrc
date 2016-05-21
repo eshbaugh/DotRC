@@ -109,7 +109,7 @@ alias gtv='git remote -v'
 alias gtph='git push'
 alias gtpha=' cd ~/DotRC; git push; cd /srv/pillar; git push; cd /srv/salt; git push'
 alias gtpl='git pull'
-alias gtpla=' cd ~/DotRC; git pull; cd /srv/pillar; git pull; cd /srv/salt; git pull; cd /srv/gov-zookeeper; git pull'
+alias gtpla=' cd ~/DotRC; git pull; cd /srv/pillar; git pull; cd /srv/salt; git pull; cd /srv/gov-zookeeper; git pull; cd ~/private; git pull; cd ~/DevOps; git pull'
 
 
 alias gtct=GitCommit
