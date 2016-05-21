@@ -56,12 +56,14 @@ alias dkrmac=RemoveAllContainers
 function RemoveAllContainers() {
   echo "Removing all containers "
   salt '*' cmd.run 'docker rm -fv `docker ps -qa`'
+  salt '*' cmd.run 'docker ps -a'
 }
 
 alias dkrman=RemoveAllNetworks 
 function RemoveAllNetworks() {
   echo "Removing all Networks "
   salt '*' cmd.run 'docker network rm `docker network ls -q`'
+  salt '*' cmd.run 'docker network ls'
 }
 
 
@@ -251,9 +253,10 @@ function Solr(){
   arg="$@" 
   echo "Solr wildcard:" $arg 
 
-  salt $WEB1 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB1H"_solr /opt/solr/bin/solr $arg"
-  salt $WEB2 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB2H"_solr /opt/solr/bin/solr $arg"
-  salt $WEB3 cmd.run "docker exec   snaped.fns.usda.gov_"$WEB3H"_solr /opt/solr/bin/solr $arg"
+  salt $WEB1 cmd.run "docker exec $SOLR1 /opt/solr/bin/solr $arg"
+  salt $WEB2 cmd.run "docker exec $SOLR2 /opt/solr/bin/solr $arg"
+  salt $WEB3 cmd.run "docker exec $SOLR3 /opt/solr/bin/solr $arg"
+
 }
 
 alias solrcol=SolrCollection
