@@ -58,6 +58,14 @@ function RemoveAllContainers() {
   salt '*' cmd.run 'docker rm -fv `docker ps -qa`'
 }
 
+alias dkrman=RemoveAllNetworks 
+function RemoveAllNetworks() {
+  echo "Removing all Networks "
+  salt '*' cmd.run 'docker network rm `docker network ls -q`'
+}
+
+
+
 alias dkn=DockerNetwork
 function DockerNetwork() {
   docker network "$@"
