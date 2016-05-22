@@ -50,6 +50,16 @@ function Docker {
 
 alias dkp='docker ps -a'
 
+alias dkpsa=DockerPsAll
+function DockerPsAll () {
+  salt '*' cmd.run 'docker ps -a'
+}
+
+alias dknls=DockerNetStat
+function DockerNetStat() {
+  salt '*' cmd.run 'docker network ls'
+}
+
 alias dkrma='docker rm -fv `docker ps -qa`'
 
 alias dkrmac=RemoveAllContainers 
