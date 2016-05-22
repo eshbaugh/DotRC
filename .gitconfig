@@ -1,7 +1,0 @@
-[user]
-	name = Jerry Eshbaugh
-	email = j2m2e2@gmail.com
-[push]
-	default = matching
-[core]
-	excludesfile = /root/.gitignore

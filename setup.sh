@@ -10,7 +10,7 @@ ln -s DotRC/.bashrc ~/.bashrc
 
 cp ~/.gitconfig ~/.gitconfig.bak
 rm ~/.gitconfig 
-ln -s DotRC/.gitconfig ~/.gitconfig
+ln -s ~/private/.gitconfig ~/.gitconfig
 
 cp ~/.gitignore ~/.gitignore.bak
 rm ~/.gitignore
