@@ -50,7 +50,7 @@ function Docker {
 
 alias dkp='docker ps -a'
 
-alias dkpsa=DockerPsAll
+alias dkpa=DockerPsAll
 function DockerPsAll () {
   salt '*' cmd.run 'docker ps -a'
 }
