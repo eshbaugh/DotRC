@@ -55,7 +55,7 @@ function DockerPsAll () {
   salt '*' cmd.run 'docker ps -a'
 }
 
-alias dknls=DockerNetStat
+alias dknlsa=DockerNetStat
 function DockerNetStat() {
   salt '*' cmd.run 'docker network ls'
 }
