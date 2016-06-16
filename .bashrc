@@ -108,7 +108,7 @@ function SwitchDockerMachine() {
   eval "$(docker-machine env "$@")"
 }
 
-alias rbb='docker run -ti --rm --net=farmtoschoolcensus-fns-usda-net busybox'
+alias rbb='docker run -ti --rm --net=ocio-net busybox'
 
 #git
 alias gta='git add .'
