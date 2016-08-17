@@ -12,6 +12,8 @@ fi
 
 # User specific aliases and functions
 
+alias s='sudo su -'
+
 #linux
 alias rm='rm -i' 
 alias cp='cp -i' 
@@ -61,6 +63,7 @@ function DockerNetStat() {
 }
 
 alias dkrma='docker rm -fv `docker ps -qa`'
+alias dkrmi='docker rmi `docker images -q`'
 
 alias dkrmac=RemoveAllContainers 
 function RemoveAllContainers() {
@@ -108,7 +111,7 @@ function SwitchDockerMachine() {
   eval "$(docker-machine env "$@")"
 }
 
-alias rbb='docker run -ti --rm --net=ocio-net busybox'
+alias rbb='docker run -ti --rm busybox'
 
 #git
 alias gta='git add .'
@@ -164,6 +167,15 @@ function HighState() {
   salt '*' state.highstate 
   CatLogs
 } 
+
+alias ssd=SiteDeploy 
+function SiteDeploy() { 
+  ClearLogs
+  echo "SiteDeploy * ..." 
+  salt '*' state.apply site-deploy 
+  CatLogs
+} 
+
 alias shss=HighStateSysOp
 function HighStateSysOp() {
   ClearLogs
