@@ -72,11 +72,22 @@ function RemoveAllContainers() {
   salt '*' cmd.run 'docker ps -a'
 }
 
-alias dkrman=RemoveAllNetworks 
+alias dkrmnet=RemoveAllNetworks 
 function RemoveAllNetworks() {
   echo "Removing all Networks "
   salt '*' cmd.run 'docker network rm `docker network ls -q`'
   salt '*' cmd.run 'docker network ls'
+}
+
+# This is a prototype it does work if you call with the network ID, but the messages reported are misleading
+alias dkrmnetend=RemoveAllNetworkEndpoints
+function RemoveAllNetworkEndpoints {
+  docker network inspect "$@" -f '{{range $element :=  .Containers}} {{printf "%s\n" $element.Name}} {{end}}' >> /tmp/netlist_junk
+
+  while read line; do
+    echo $line
+    docker network disconnect -f "$@" $line
+  done < /tmp/netlist_junk
 }
 
 
