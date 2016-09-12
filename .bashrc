@@ -42,6 +42,13 @@ function CountFiles() {
   find "$@" -type f | wc -l  
 }
 
+#Web Site Tests
+# Usage: curlhost snap2skills.usda.gov
+# If the IP needs to changed ping prod.wcmaas.usda.gov
+alias curlhost=CurlHost
+function CurlHost() {
+  curl -k  https://199.134.75.34 -H "host:$@"
+}
 
 #docker
 
