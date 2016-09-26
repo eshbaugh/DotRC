@@ -32,6 +32,7 @@ function ViGrep(){
 #RedHat/Centos
 alias vids='vi /etc/systemd/system/docker.service'
 alias cdes='cd /etc/systemd/system'
+alias cdcu='cd /home/cloud-user'
 alias syc=SysCtl
 function SysCtl() {
   sudo systemctl "$@" 
@@ -177,6 +178,7 @@ function CatLogs() {
   echo "Master Log----------" 
   cat /var/log/salt/master 
 }
+
 alias shs=HighState 
 function HighState() { 
   ClearLogs
@@ -193,6 +195,13 @@ function SiteDeploy() {
   salt '*' state.apply site-deploy 
   CatLogs
 } 
+
+alias all=AllState 
+function AllState() { 
+  /srv/salt/clean.sh
+  HighState
+  SiteDeploy
+}
 
 alias shss=HighStateSysOp
 function HighStateSysOp() {
