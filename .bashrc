@@ -314,3 +314,6 @@ function SolrCollection() {
   echo "Solr wildcard:" $arg 
   salt $WEB1 cmd.run "docker exec  snaped.fns.usda.gov_"$WEB1H"_solr bin/solr create_collection -c test -p 8983 -d /opt/solr/server" 
 }
+
+alias rsab='cp -rf ~/.ssh/id_rsa-bitbucket ~/.ssh/id_rsa'
+alias rsag='cp -rf ~/.ssh/id_rsa-git ~/.ssh/id_rsa'
