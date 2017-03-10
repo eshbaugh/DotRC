@@ -152,6 +152,11 @@ alias gtco=GitCheckout
 function GitCheckout {
   git checkout "$@"
 }
+alias gtrv=GitRevert
+function GitRevert {
+  rm -i "$@"
+  git checkout "$@"
+}
 
 #WebDav
 alias cad='cadaver https://www.cloudvault.usda.gov/remote.php/webdav/'
