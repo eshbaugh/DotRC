@@ -277,6 +277,7 @@ function RemoteStateWeb2 {
 }
 
 
+
 #Zookeeper
 
 alias zk=ZK
@@ -321,3 +322,12 @@ function SolrCollection() {
 
 alias rsab='cp -rf ~/.ssh/id_rsa-bitbucket ~/.ssh/id_rsa'
 alias rsag='cp -rf ~/.ssh/id_rsa-git ~/.ssh/id_rsa'
+
+
+# Rancher
+
+alias rssh=RancherSsh
+function RancherSsh() {
+  arg="$@" 
+  rancherssh %$arg%
+}
