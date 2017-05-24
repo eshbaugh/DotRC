@@ -161,7 +161,13 @@ function GitRevert {
 #WebDav
 alias cad='cadaver https://www.cloudvault.usda.gov/remote.php/webdav/'
 
-#salt
+#Ansible
+alias anp=AnsiblePlaybook
+function AnsiblePlaybook {
+  ansible-playbook "$@"
+}
+
+#SaltStack
 alias cdp='cd /srv/pillar' 
 alias cds='cd /srv/salt' 
 alias cdz='cd /srv/gov-zookeeper'
