@@ -167,9 +167,10 @@ function AnsiblePlaybook {
   ansible-playbook "$@"
 }
 
+alias cds='cd /src/platform' 
+
 #SaltStack
 alias cdp='cd /srv/pillar' 
-alias cds='cd /srv/salt' 
 alias cdz='cd /srv/gov-zookeeper'
 alias cdt='cd /app/test'
 alias cdv='cd /mnt/cloud-backup'
