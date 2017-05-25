@@ -114,6 +114,11 @@ function DockerExec {
   docker exec -ti "$@" /bin/bash
 }
 
+alias dkes=DockerExecSh
+function DockerExecSh {
+  docker exec -ti "$@" /bin/sh
+}
+
 alias dcomp=DockerCompose 
 function DockerCompose { 
   docker-compose "$@" 
