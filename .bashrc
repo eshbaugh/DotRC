@@ -17,7 +17,7 @@ alias s='sudo su -'
 #
 # General helper aliases
 #
-alias cdpp='cd /src/pivot/pivot-platform' 
+alias cdpp='cd /src/pivot/pivot-platform/playbooks' 
 alias cdes='cd /etc/systemd/system'
 alias vids='vi /etc/systemd/system/docker.service'
 
