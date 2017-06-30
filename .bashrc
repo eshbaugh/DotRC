@@ -76,7 +76,7 @@ function Docker {
 alias dkp='sudo docker ps -a'
 
 # Remove all containers
-alias dkrma='sudo docker rm -fv `docker ps -qa`'
+alias dkrma='sudo docker rm -fv `sudo docker ps -qa`'
 
 # Remove all images
 alias dkrmi='sudo docker rmi `docker images -q`'
