@@ -240,5 +240,5 @@ function RancherSsh() {
 #
 alias anp=AnsiblePlaybook
 function AnsiblePlaybook {
-  ansible-playbook "$@"
+  ansible-playbook "$@.yml"
 }
