@@ -171,6 +171,7 @@ alias gtpha=' cd ~/DotRC; git push; cd /srv/pillar; git push; cd /srv/salt; git 
 alias gtpl='git pull'
 alias gtpla=' cd ~/DotRC; git pull; cd /srv/pillar; git pull; cd /srv/salt; git pull; cd /srv/gov-zookeeper; git pull; cd ~/private; git pull; cd ~/DevOps; git pull'
 alias gtsa=' cd ~/DotRC; git status; cd /srv/pillar; git status; cd /srv/salt; git status; cd /srv/gov-zookeeper; git status; cd ~/private; git status; cd ~/DevOps; git status'
+alias gtch='git config --global credential.helper cache'
 
 alias gtct=GitCommit
 function GitCommit {
