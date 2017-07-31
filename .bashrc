@@ -240,7 +240,12 @@ function RancherSsh() {
 # OpenShift
 #
 
+# Analysis Commands
 alias ocsv='oc get svc'
+alias ocpd='oc get pods'
+alias ocpdw='oc get pods -w'
+alias ocpr='oc projects'
+
 
 
 #
