@@ -237,6 +237,13 @@ function RancherSsh() {
 }
 
 #
+# OpenShift
+#
+
+alias ocsv='oc get svc'
+
+
+#
 # Ansible
 #
 alias anp=AnsiblePlaybook
