@@ -245,6 +245,8 @@ alias ocsv='oc get svc'
 alias ocpd='oc get pods'
 alias ocpdw='oc get pods -w'
 alias ocpr='oc projects'
+alias ocgtr='oc get is'
+alias occv='oc config view'
 
 
 
