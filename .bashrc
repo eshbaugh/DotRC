@@ -79,7 +79,7 @@ alias dkp='sudo docker ps -a'
 alias dkrma='sudo docker rm -fv `sudo docker ps -qa`'
 
 # Remove all images
-alias dkrmi='sudo docker rmi `docker images -q`'
+alias dkrmi='sudo docker rmi `sudo docker images -q`'
 
 
 # This is a prototype it does work if you call with the network ID, but the messages reported are misleading
@@ -167,10 +167,7 @@ alias gtds='git diff --staged'
 alias gts='git status'
 alias gtv='git status; git remote -v'
 alias gtph='git push'
-alias gtpha=' cd ~/DotRC; git push; cd /srv/pillar; git push; cd /srv/salt; git push'
 alias gtpl='git pull'
-alias gtpla=' cd ~/DotRC; git pull; cd /srv/pillar; git pull; cd /srv/salt; git pull; cd /srv/gov-zookeeper; git pull; cd ~/private; git pull; cd ~/DevOps; git pull'
-alias gtsa=' cd ~/DotRC; git status; cd /srv/pillar; git status; cd /srv/salt; git status; cd /srv/gov-zookeeper; git status; cd ~/private; git status; cd ~/DevOps; git status'
 alias gtch='git config --global credential.helper cache'
 
 alias gtct=GitCommit
