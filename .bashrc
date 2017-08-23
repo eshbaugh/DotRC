@@ -257,5 +257,5 @@ alias occv='oc config view'
 #
 alias anp=AnsiblePlaybook
 function AnsiblePlaybook {
-  ansible-playbook "$@.yml"
+  ansible-playbook "$@"
 }
