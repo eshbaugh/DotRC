@@ -51,6 +51,11 @@ function CountFiles() {
   find "$@" -type f | wc -l  
 }
 
+alias rhsm=SubscriptionManager
+function SubscriptionManager() {
+  subscription-manager "$@"
+}
+
 
 #
 # Network 
