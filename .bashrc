@@ -241,12 +241,17 @@ function RancherSsh() {
 #
 
 # Analysis Commands
-alias ocsv='oc get svc'
+alias ocsv='oc get services'
 alias ocpd='oc get pods'
 alias ocpdw='oc get pods -w'
 alias ocpr='oc projects'
 alias ocgtr='oc get is'
 alias occv='oc config view'
+alias ocar=AddUserClusterRoll
+function AddUserClusterRoll() {
+  user="$@" 
+  oc adm policy add-cluster-role-to-user cluster-admin $user
+}
 
 
 
