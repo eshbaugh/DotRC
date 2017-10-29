@@ -241,7 +241,7 @@ function RancherSsh() {
 # OpenShift
 #
 
-# Analysis Commands
+# Analysis 
 alias ocsv='oc get services'
 alias ocpd='oc get pods'
 alias ocpdw='oc get pods -w'
@@ -254,6 +254,12 @@ function AddUserClusterRoll() {
   oc adm policy add-cluster-role-to-user cluster-admin $user
 }
 
+
+#  Commands
+alias oceuninstall=OpenShiftUninstall
+function OpenShiftUninstall() {
+  ansible-playbook "$@" /usr/share/ansible/openshift-ansible/playbooks/adhoc/uninstall.yml 
+}
 
 
 #
