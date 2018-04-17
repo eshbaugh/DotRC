@@ -269,3 +269,10 @@ alias anp=AnsiblePlaybook
 function AnsiblePlaybook {
   ansible-playbook "$@"
 }
+
+
+#
+#  Postgres 
+#
+
+alias ocpgm='oc rsh $(oc get pods -l role=masterdb -o jsonpath='\''{.items[0].metadata.name}'\'')'
