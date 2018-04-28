@@ -36,6 +36,8 @@ function ViGrep(){
   vi `grep -rl "$@"`
 }
 
+alias crh='curl -k https://www.redhat.com/en'
+
 #
 # RedHat/Centos
 #
