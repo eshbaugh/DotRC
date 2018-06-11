@@ -39,9 +39,21 @@ function ViGrep(){
 alias sshnb=SshNoBanner
 function SshNoBanner(){
   # Display only error messages and ingnoring any banners that may be displayed
+  # For a more comprehensive solution checkout https://github.com/Russell91/sshrc
   ssh -o LogLevel=error "$@"
 }
 
+alias sshap=SshAskPass
+function SshAskPass() {
+  # Troubleshooting
+  #  Open KDEWallet App in GUI and look for Access controll entry
+  #  If this fails to bring up the password dialog try disabling
+  #     and renabling the KDE wallet
+  export SSH_ASKPASS=/usr/bin/ksshaskpass
+  #setsid export DISPLAY=/usr/bin/ssh
+  # Issue  does not use remote display, stays local
+  setsid ssh -J jeshbaugh@localhost -f localhost xterm 
+}
 
 alias crh='curl -k https://www.redhat.com/en'
 
