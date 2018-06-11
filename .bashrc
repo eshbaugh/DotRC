@@ -36,6 +36,13 @@ function ViGrep(){
   vi `grep -rl "$@"`
 }
 
+alias sshnb=SshNoBanner
+function SshNoBanner(){
+  # Display only error messages and ingnoring any banners that may be displayed
+  ssh -o LogLevel=error "$@"
+}
+
+
 alias crh='curl -k https://www.redhat.com/en'
 
 #
