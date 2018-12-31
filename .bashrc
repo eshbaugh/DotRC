@@ -6,8 +6,8 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Source private definitions
-if [ -f ~/.private_bashrc ]; then
-  . ~/.private_bashrc
+if [ -f ~/private/.private_bashrc ]; then
+  . ~/private/.private_bashrc
 fi
 
 # User specific aliases and functions
