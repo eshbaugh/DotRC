@@ -62,7 +62,6 @@ alias crh='curl -k https://www.redhat.com/en'
 #
 # RedHat/Centos
 #
-alias cdcu='cd /home/cloud-user'
 alias syc=SysCtl
 function SysCtl() {
   sudo systemctl "$@" 
@@ -212,6 +211,8 @@ function GitRevert {
   rm -i "$@"
   git checkout "$@"
 }
+
+alias cds='cd ~/src'
 
 
 #
