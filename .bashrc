@@ -6,8 +6,10 @@ if [ -f /etc/bashrc ]; then
 fi
 
 # Source private definitions
-if [ -f ~/private/.private_bashrc ]; then
-  . ~/private/.private_bashrc
+PRIVATE_BASH="$HOME/private/.private_bashrc"
+if [ -f $PRIVATE_BASH ]; then
+  . $PRIVATE_BASH
+  alias vibp="vi $PRIVATE_BASH;source $PRIVATE_BASH"
 fi
 
 # User specific aliases and functions
@@ -61,7 +63,6 @@ alias crh='curl -k https://www.redhat.com/en'
 #
 # RedHat/Centos
 #
-alias cdcu='cd /home/cloud-user'
 alias syc=SysCtl
 function SysCtl() {
   sudo systemctl "$@" 
@@ -211,6 +212,8 @@ function GitRevert {
   rm -i "$@"
   git checkout "$@"
 }
+
+alias cds='cd ~/src'
 
 
 #
