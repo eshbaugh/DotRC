@@ -29,6 +29,7 @@ alias mv='mv -i'
 alias ll='ls -alhrt' 
 alias h='history' 
 alias vib='vi ~/.bashrc ; source ~/.bashrc'
+alias vibp='vi ~/private/.private_bashrc ; source ~/.bashrc'
 alias viv='vi ~/.vimrc'
 alias gri='cat /etc/*release'
 alias vig=ViGrep
@@ -297,3 +298,11 @@ function AnsiblePlaybook {
 #
 
 alias ocpgm='oc rsh $(oc get pods -l role=masterdb -o jsonpath='\''{.items[0].metadata.name}'\'')'
+
+#
+# AWS
+#
+alias a=awsCLI
+function awsCLI {
+  aws "$@"
+}
