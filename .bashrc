@@ -306,10 +306,13 @@ alias ocpgm='oc rsh $(oc get pods -l role=masterdb -o jsonpath='\''{.items[0].me
 alias phelp=phelp
 function phelp {
   echo "PostgreSQL command cheat sheet   command : description"
-  echo "su - postgres;psql :  Connect to the PostgreSQL command line client"
+  echo "------------Linux Commands --------------------------"
+  echo "su - postgres;psql  : Connect to the PostgreSQL command line client"
   echo "\connect dbname  : connect to a database with the name of dbname"
   echo "CREATE DATABASE dbname;  : Create a database"
-  echo "pg_restore -c -U postgres -d db_name db_backup.tar -W  : Restore database from tar file, -c clean db"
+  echo "pg_restore -c -U postgres -d db_name db_backup.tar  : Restore database from tar file, -c clean db"
+  echo "------------psql Commands --------------------------"
+  echo ""
 }
 
 #
