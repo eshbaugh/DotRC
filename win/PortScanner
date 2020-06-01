@@ -1,0 +1,1 @@
+$server="hostname"; $port=1433; echo ((new-object Net.Sockets.TcpClient).Connect($server,$port)) "$server is listening on TCP port $port";
